@@ -73,9 +73,6 @@ const checkPassword = async () => {
                 body: JSON.stringify(password)
             });
         console.log(res)
-        //if (!res.ok) {
-        //    alert("Error the password is not enough strengh")
-        //}
         const secure = await res.json();
         progress.value = secure;
     }
