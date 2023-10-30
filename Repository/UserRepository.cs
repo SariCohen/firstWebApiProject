@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly string filePath = "./users.txt";
         public User GetUserByEmailAndPassword(string email, string password)
@@ -34,7 +34,6 @@ namespace Repository
                 string currentUserInFile;
                 while ((currentUserInFile = reader.ReadLine()) != null)
                 {
-
                     User user = JsonSerializer.Deserialize<User>(currentUserInFile);
                     if (user.Id == id)
                         return user;
@@ -60,7 +59,6 @@ namespace Repository
                 string currentUserInFile;
                 while ((currentUserInFile = reader.ReadLine()) != null)
                 {
-
                     User user = JsonSerializer.Deserialize<User>(currentUserInFile);
                     if (user.Id == id)
                         textToReplace = currentUserInFile;

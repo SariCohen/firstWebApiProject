@@ -8,23 +8,27 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-    public class UserService
+    public class UserService : IUserService
     {
-        UserRepository userRepository = new UserRepository();
+        private readonly IUserRepository _userRepository;
+        public UserService(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
 
         public User GetUserByEmailAndPassword(string email, string password)
         {
-            return userRepository.GetUserByEmailAndPassword(email, password);
+            return _userRepository.GetUserByEmailAndPassword(email, password);
         }
 
         public User GetUserById(int id)
         {
-            return userRepository.GetUserById(id);
+            return _userRepository.GetUserById(id);
         }
 
         public User AddUser(User user)
         {
-            return userRepository.AddUser(user);
+            return _userRepository.AddUser(user);
         }
 
         public int CheckPwd(string password)
@@ -35,7 +39,7 @@ namespace Service
 
         public User UpdateUser(int id, User user)
         {
-            return userRepository.UpdateUser(id, user);
+            return _userRepository.UpdateUser(id, user);
         }
     }
 }
