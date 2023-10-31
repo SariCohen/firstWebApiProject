@@ -14,16 +14,17 @@ namespace Login.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     { 
-        private readonly IUserService _userService;
+        IUserService _userService;
         public UsersController(IUserService userService)
         {
             _userService = userService;
         }
+
         // GET: api/<UsersController>
         [HttpGet]
-        public ActionResult<User> Get([FromQuery] string userName, [FromQuery] string password)
+        public async Task<ActionResult<User>> Get([FromQuery] string userName, [FromQuery] string password)
         {
-            User user = _userService.GetUserByEmailAndPassword(userName, password);
+            User user = await _userService.GetUserByEmailAndPassword(userName, password);
             if(user == null)
                 return NoContent();
             return Ok(user);
@@ -31,9 +32,9 @@ namespace Login.Controllers
 
         // GET api/<UsersController>/5
         [HttpGet("{id}")]
-        public ActionResult<User> Get(int id)
+        public async Task<ActionResult<User>> Get(int id)
         {
-            User user = _userService.GetUserById(id);
+            User user = await _userService.GetUserById(id);
             if (user == null)
                 return NoContent();
             return Ok(user);
@@ -41,16 +42,16 @@ namespace Login.Controllers
 
         // POST api/<UsersController>
         [HttpPost]
-        public ActionResult<User> Post([FromBody] User user)
+        public async Task<ActionResult<User>> Post([FromBody] User user)
         {
-            User newUser = _userService.AddUser(user);
+            User newUser = await _userService.AddUser(user);
             return CreatedAtAction(nameof(Get), new { id = newUser.Id }, newUser);
         }
         [Route("Pwd")]
         [HttpPost]
-        public ActionResult<int> Post([FromBody] string password)
+        public async Task<ActionResult<int>> Post([FromBody] string password)
         {
-            int result = _userService.CheckPwd(password);
+            int result = await _userService.CheckPwd(password);
             if (result <= 2)
                 return BadRequest(result);
             return Ok(result);
@@ -58,9 +59,9 @@ namespace Login.Controllers
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public ActionResult<User> Put(int id, [FromBody] User upUser)
+        public async Task<ActionResult<User>> Put(int id, [FromBody] User upUser)
         {
-            User user = _userService.UpdateUser(id, upUser);
+            User user = await _userService.UpdateUser(id, upUser);
             if(user == null)
                 return NoContent();
             return Ok();

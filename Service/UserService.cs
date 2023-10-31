@@ -16,30 +16,30 @@ namespace Service
             _userRepository = userRepository;
         }
 
-        public User GetUserByEmailAndPassword(string email, string password)
+        public async Task<User> GetUserByEmailAndPassword(string email, string password)
         {
-            return _userRepository.GetUserByEmailAndPassword(email, password);
+            return await _userRepository.GetUserByEmailAndPassword(email, password);
         }
 
-        public User GetUserById(int id)
+        public async Task<User> GetUserById(int id)
         {
-            return _userRepository.GetUserById(id);
+            return await _userRepository.GetUserById(id);
         }
 
-        public User AddUser(User user)
+        public async Task<User> AddUser(User user)
         {
-            return _userRepository.AddUser(user);
+            return await _userRepository.AddUser(user);
         }
 
-        public int CheckPwd(string password)
+        public async Task<int> CheckPwd(string password)
         {
             var result = Zxcvbn.Core.EvaluatePassword(password);
             return result.Score;
         }
 
-        public User UpdateUser(int id, User user)
+        public async Task<User> UpdateUser(int id, User user)
         {
-            return _userRepository.UpdateUser(id, user);
+            return await _userRepository.UpdateUser(id, user);
         }
     }
 }

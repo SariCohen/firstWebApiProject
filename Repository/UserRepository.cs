@@ -11,12 +11,12 @@ namespace Repository
     public class UserRepository : IUserRepository
     {
         private readonly string filePath = "./users.txt";
-        public User GetUserByEmailAndPassword(string email, string password)
+        public async Task<User> GetUserByEmailAndPassword(string email, string password)
         {
             using (StreamReader reader = System.IO.File.OpenText(filePath))
             {
                 string? currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
+                while ((currentUserInFile = await reader.ReadLineAsync()) != null)
                 {
                     User user = JsonSerializer.Deserialize<User>(currentUserInFile);
                     if (user.UserName == email && user.Password == password)
@@ -26,13 +26,12 @@ namespace Repository
             return null;
         }
 
-        public User GetUserById(int id)
-        {
-            string textToReplace = string.Empty;
+        public async Task<User> GetUserById(int id)
+        { 
             using (StreamReader reader = System.IO.File.OpenText(filePath))
             {
                 string currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
+                while ((currentUserInFile = await reader.ReadLineAsync()) != null)
                 {
                     User user = JsonSerializer.Deserialize<User>(currentUserInFile);
                     if (user.Id == id)
@@ -42,7 +41,7 @@ namespace Repository
             }
         }
 
-        public User AddUser(User user)
+        public async Task<User> AddUser(User user)
         {
             int numberOfUsers = System.IO.File.ReadLines(filePath).Count();
             user.Id = numberOfUsers + 1;
@@ -51,13 +50,13 @@ namespace Repository
             return user;
         }
 
-        public User UpdateUser(int id, User upUser)
+        public async Task<User> UpdateUser(int id, User upUser)
         {
             string textToReplace = string.Empty;
             using (StreamReader reader = System.IO.File.OpenText(filePath))
             {
                 string currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
+                while ((currentUserInFile = await reader.ReadLineAsync()) != null)
                 {
                     User user = JsonSerializer.Deserialize<User>(currentUserInFile);
                     if (user.Id == id)
@@ -66,9 +65,9 @@ namespace Repository
             }
             if (textToReplace != string.Empty)
             {
-                string text = System.IO.File.ReadAllText(filePath);
+                string text = await System.IO.File.ReadAllTextAsync(filePath);
                 text = text.Replace(textToReplace, JsonSerializer.Serialize(upUser));
-                System.IO.File.WriteAllText(filePath, text);
+                await System.IO.File.WriteAllTextAsync(filePath, text);
                 return upUser;
             }
             return null;
