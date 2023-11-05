@@ -1,4 +1,4 @@
-﻿using Entities;
+﻿using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Session;
 using Service;
