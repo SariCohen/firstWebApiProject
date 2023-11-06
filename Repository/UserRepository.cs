@@ -1,4 +1,5 @@
 ﻿using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 using Repository;
 using System;
 using System.Collections.Generic;
@@ -21,53 +22,27 @@ namespace Repository
 
         public async Task<User> GetUserByEmailAndPassword(string email, string password)
         {
-            //using (StreamReader reader = System.IO.File.OpenText(filePath))
-            //{
-            //    string? currentUserInFile;
-            //    while ((currentUserInFile = await reader.ReadLineAsync()) != null)
-            //    {
-            //        User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-            //        if (user.UserName == email && user.Password == password)
-            //            return user;
-            //    }
-            //}
-            return null;
+            return await _store214493777Context.Users.Where(user => user.UserName == email && user.Password == password).FirstOrDefaultAsync();
         }
 
         public async Task<User> GetUserById(int id)
         {
-            // return await _store214493777Context.FindAsync();
-            return null;
+            return await _store214493777Context.Users.FindAsync(id);
+            
         }
 
         public async Task<User> AddUser(User user)
         {
-            await _store214493777Context.AddAsync(user);
+            await _store214493777Context.Users.AddAsync(user);
             await _store214493777Context.SaveChangesAsync();
             return user;
         }
 
         public async Task<User> UpdateUser(int id, User upUser)
         {
-            //string textToReplace = string.Empty;
-            //using (StreamReader reader = System.IO.File.OpenText(filePath))
-            //{
-            //    string currentUserInFile;
-            //    while ((currentUserInFile = await reader.ReadLineAsync()) != null)
-            //    {
-            //        User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-            //        if (user.Id == id)
-            //            textToReplace = currentUserInFile;
-            //    }
-            //}
-            //if (textToReplace != string.Empty)
-            //{
-            //    string text = await System.IO.File.ReadAllTextAsync(filePath);
-            //    text = text.Replace(textToReplace, JsonSerializer.Serialize(upUser));
-            //    await System.IO.File.WriteAllTextAsync(filePath, text);
-            //    return upUser;
-            //}
-            return null;
+            _store214493777Context.Update(upUser);
+            await _store214493777Context.SaveChangesAsync();
+            return upUser;
         }
     }
 }
