@@ -1,6 +1,7 @@
 ﻿using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Service;
+using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,9 +20,14 @@ namespace firstWebApi.Controllers
 
         // GET: api/<ProductsController>
         [HttpGet]
-        public async Task<List<Product>> Get()
+        public async Task<ActionResult<List<Product>>> Get()
         {
-            return await _productService.GetAllProducts();
+            List<Product> lp = await _productService.GetAllProducts();
+            if(lp == null)
+            {
+                return NoContent();
+            }
+            return Ok(lp);
         }
 
         // GET api/<ProductsController>/5

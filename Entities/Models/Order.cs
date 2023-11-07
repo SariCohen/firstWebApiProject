@@ -9,7 +9,7 @@ public partial class Order
 
     public DateTime OrderDate { get; set; }
 
-    public string OrderSum { get; set; } = null!;
+    public int OrderSum { get; set; }
 
     public int? UserId { get; set; }
 
