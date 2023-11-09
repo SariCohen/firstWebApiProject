@@ -45,31 +45,31 @@ public partial class Store214493777Context : DbContext
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Orders__3214EC07F9A7124A");
+            entity.HasKey(e => e.Id).HasName("PK__Orders__3214EC07D9D3E240");
 
             entity.Property(e => e.OrderDate).HasColumnType("date");
-            entity.Property(e => e.OrderSum)
-                .HasMaxLength(1)
-                .IsFixedLength();
 
             entity.HasOne(d => d.User).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Orders__UserId__6FE99F9F");
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Orders__UserId__29221CFB");
         });
 
         modelBuilder.Entity<OrderItem>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__OrderIte__3214EC079C58CEAA");
+            entity.HasKey(e => e.Id).HasName("PK__OrderIte__3214EC07CA5AB76F");
 
             entity.ToTable("OrderItem");
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderItems)
                 .HasForeignKey(d => d.OrderId)
-                .HasConstraintName("FK__OrderItem__Order__73BA3083");
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__OrderItem__Order__2CF2ADDF");
 
             entity.HasOne(d => d.Product).WithMany(p => p.OrderItems)
                 .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__OrderItem__Produ__72C60C4A");
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__OrderItem__Produ__2BFE89A6");
         });
 
         modelBuilder.Entity<Product>(entity =>
