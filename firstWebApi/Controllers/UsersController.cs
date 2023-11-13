@@ -13,8 +13,8 @@ namespace Login.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
-    { 
-        IUserService _userService;
+    {
+        private readonly IUserService _userService;
         public UsersController(IUserService userService)
         {
             _userService = userService;
@@ -44,8 +44,15 @@ namespace Login.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> Post([FromBody] User user)
         {
-            User newUser = await _userService.AddUser(user);
-            return CreatedAtAction(nameof(Get), new { id = newUser.Id }, newUser);
+            try
+            {
+                User newUser = await _userService.AddUser(user);
+                return CreatedAtAction(nameof(Get), new { id = newUser.Id }, newUser);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [Route("Pwd")]
         [HttpPost]

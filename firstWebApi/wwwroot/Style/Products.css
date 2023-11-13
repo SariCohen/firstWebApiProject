@@ -52,10 +52,7 @@ p.description{
 .bar::before {
     content: 'חנות הצעצועים שלי';
     color: white;
-    /* display: inline-block; */
     position: absolute;
-    /* margin: 0 auto; */
-    /* display: block; */
     top: 8px;
     left: 51%;
     font-family: Helvetica;
@@ -157,13 +154,12 @@ p.description{
 
 
 .Filters {
-    position: absolute;
     width: 184px;
     float: right;
     margin: 4px 4px;
     padding-top: 50px;
     padding-bottom: 10px;
-    position: absolute;
+    position:absolute;
     z-index: 102;
     background-color: rgb(249, 249, 249);
     font-family: Arial;

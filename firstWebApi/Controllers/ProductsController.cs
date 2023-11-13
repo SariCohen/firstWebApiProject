@@ -20,9 +20,9 @@ namespace firstWebApi.Controllers
 
         // GET: api/<ProductsController>
         [HttpGet]
-        public async Task<ActionResult<List<Product>>> GetAllProducts(int position, int skip, string? desc, int? minPrice, int? maxPrice, int?[] categoryIds)
+        public async Task<ActionResult<List<Product>>> GetAllProducts(string? desc, int? minPrice, int? maxPrice, [FromQuery] int?[] categoryIds)
         {
-            List<Product> lp = await _productService.GetAllProducts(position, skip, desc, minPrice, maxPrice, categoryIds);
+            List<Product> lp = await _productService.GetAllProducts(desc, minPrice, maxPrice, categoryIds);
             if(lp == null)
             {
                 return NoContent();

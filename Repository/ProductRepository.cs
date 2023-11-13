@@ -16,7 +16,7 @@ namespace Repository
             _store214493777Context = new Store214493777Context();
         }
 
-        public async Task<List<Product>> GetAllProducts(int position, int skip, string? desc, int? minPrice, int? maxPrice, int?[] categoryIds)
+        public async Task<List<Product>> GetAllProducts(string? desc, int? minPrice, int? maxPrice, int?[] categoryIds)
         {
             var query = _store214493777Context.Products.Where(product =>
             (desc == null ? (true) : (product.ProdDescription.Contains(desc)))

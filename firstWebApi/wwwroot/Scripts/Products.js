@@ -1,8 +1,14 @@
 ﻿const loadProductPage = async () => {
     const categories = await getCategories();
     showCategories(categories);
-    const products = await getProducts();
+    const products = await getProducts("");
     showProducts(products);
+}
+
+const filter = (id) => {
+    const checkbox = document.getElementById(id);
+    if (checkbox.checked)
+        console.log(id);
 }
 
 const getCategories = async () => {
@@ -43,9 +49,9 @@ const showCategories = (categories) => {
     });    
 } 
 
-const getProducts = async () => {
+const getProducts = async (url) => {
     try {
-        const res = await fetch(`/api/products`,
+        const res = await fetch(`/api/products` + url,
             {
                 method: 'GET',
                 headers: {
@@ -64,19 +70,24 @@ const getProducts = async () => {
 }
 
 const showProducts = (products) => {
-    const template = document.getElementById("temp-category").content;
-    const categoryList = document.getElementById("categoryList");
-    categories.forEach(category => {
+    const template = document.getElementById("temp-card").content;
+    const PoductList = document.getElementById("PoductList");
+    console.log(products);
+    products.forEach(product => {
         const clone = template.cloneNode(true);
-        const checkbox = clone.querySelector(".opt");
-        const label = clone.querySelector("label");
-        const optionName = clone.querySelector(".OptionName");
+        const image = clone.querySelector("img");
+        const h1 = clone.querySelector("h1");
+        const price = clone.querySelector(".price");
+        const description = clone.querySelector(".description");
 
-        checkbox.id = category.id;
-        checkbox.value = category.id;
-        label.setAttribute("for", category.id);
-        optionName.textContent = category.categoryName;
-
-        categoryList.appendChild(clone);
+        image.src = "./Images/" + product.prodImage;
+        h1.textContent = product.prodName;
+        price.textContent = product.price + " ₪";
+        description.textContent = product.prodDescription;
+        ;
+        
+        PoductList.appendChild(clone);
     });
+    const counter = document.getElementById("counter");
+    counter.innerHTML = products.length;
 } 

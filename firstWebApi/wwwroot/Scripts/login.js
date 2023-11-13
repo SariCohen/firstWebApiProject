@@ -38,7 +38,7 @@ const register = async () => {
         if (progress < 3) 
             throw new Error("Change the password")
 
-        const user = { userName, password, progress, name, lastName }
+        const user = { userName, password, name, lastName }
 
         const res = await fetch('/api/users',
             {
