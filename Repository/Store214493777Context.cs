@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 
+using Entities.Models;
 namespace Repository;
 
 public partial class Store214493777Context : DbContext
@@ -45,31 +45,31 @@ public partial class Store214493777Context : DbContext
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Orders__3214EC07D9D3E240");
+            entity.HasKey(e => e.Id).HasName("PK__Orders__3214EC07F3A9A8BD");
 
             entity.Property(e => e.OrderDate).HasColumnType("date");
 
             entity.HasOne(d => d.User).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Orders__UserId__29221CFB");
+                .HasConstraintName("FK__Orders__UserId__4F47C5E3");
         });
 
         modelBuilder.Entity<OrderItem>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__OrderIte__3214EC07CA5AB76F");
+            entity.HasKey(e => e.Id).HasName("PK__OrderIte__3214EC07BF3801C9");
 
             entity.ToTable("OrderItem");
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderItems)
                 .HasForeignKey(d => d.OrderId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__OrderItem__Order__2CF2ADDF");
+                .HasConstraintName("FK__OrderItem__Order__531856C7");
 
             entity.HasOne(d => d.Product).WithMany(p => p.OrderItems)
                 .HasForeignKey(d => d.ProductId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__OrderItem__Produ__2BFE89A6");
+                .HasConstraintName("FK__OrderItem__Produ__5224328E");
         });
 
         modelBuilder.Entity<Product>(entity =>
@@ -93,19 +93,19 @@ public partial class Store214493777Context : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC074CC45561");
+            entity.HasKey(e => e.Id).HasName("PK__Users__3214EC07514739AD");
 
             entity.Property(e => e.LastName)
-                .HasMaxLength(20)
+                .HasMaxLength(30)
                 .IsFixedLength();
             entity.Property(e => e.Name)
-                .HasMaxLength(20)
+                .HasMaxLength(30)
                 .IsFixedLength();
             entity.Property(e => e.Password)
-                .HasMaxLength(20)
+                .HasMaxLength(50)
                 .IsFixedLength();
             entity.Property(e => e.UserName)
-                .HasMaxLength(20)
+                .HasMaxLength(50)
                 .IsFixedLength();
         });
 
