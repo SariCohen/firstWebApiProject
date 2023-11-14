@@ -5,10 +5,25 @@
     showProducts(products);
 }
 
-const filter = (id) => {
-    const checkbox = document.getElementById(id);
-    if (checkbox.checked)
-        console.log(id);
+const filterProducts = async () => {
+    const checkboxArray = document.getElementsByClassName("opt");
+    const desc = document.getElementById("nameSearch").value;
+    const minPrice = document.getElementById("minPrice").value;
+    const maxPrice = document.getElementById("maxPrice").value;
+    let url = "?desc=" + desc + "&minPrice=" + minPrice + "&maxPrice=" + maxPrice;
+
+    for (let i = 0; i < checkboxArray.length; i++) {
+        if (checkboxArray[i].checked) {
+            url += "&categoryIds=" + checkboxArray[i].id;
+        }
+    } 
+    console.log(desc);
+    console.log(minPrice);
+    console.log(maxPrice);    
+    console.log(url);
+
+    const products = await getProducts(url);
+    showProducts(products);
 }
 
 const getCategories = async () => {
@@ -72,6 +87,7 @@ const getProducts = async (url) => {
 const showProducts = (products) => {
     const template = document.getElementById("temp-card").content;
     const PoductList = document.getElementById("PoductList");
+    PoductList.replaceChildren();
     console.log(products);
     products.forEach(product => {
         const clone = template.cloneNode(true);
