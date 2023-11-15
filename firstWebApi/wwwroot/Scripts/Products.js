@@ -85,6 +85,8 @@ const getProducts = async (url) => {
 }
 
 const showProducts = (products) => {
+    let min = 1000;
+    let max = 0;
     const template = document.getElementById("temp-card").content;
     const PoductList = document.getElementById("PoductList");
     PoductList.replaceChildren();
@@ -100,10 +102,16 @@ const showProducts = (products) => {
         h1.textContent = product.prodName;
         price.textContent = product.price + " ₪";
         description.textContent = product.prodDescription;
-        ;
-        
+        if (product.price > max)
+            max = product.price;
+        if (product.price < min)
+            min = product.price;
         PoductList.appendChild(clone);
     });
     const counter = document.getElementById("counter");
     counter.innerHTML = products.length;
+    const minPrice = document.getElementById("minPrice");
+    minPrice.placeholder = min;
+    const maxPrice = document.getElementById("maxPrice");
+    maxPrice.placeholder = max;
 } 
