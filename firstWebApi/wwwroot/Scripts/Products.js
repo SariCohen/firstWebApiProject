@@ -3,6 +3,7 @@
     showCategories(categories);
     const products = await getProducts("");
     showProducts(products);
+    sessionStorage.setItem("productArray", "[]");
 }
 
 const filterProducts = async () => {
@@ -49,12 +50,12 @@ const showCategories = (categories) => {
         const checkbox = clone.querySelector(".opt");
         const label = clone.querySelector("label");
         const optionName = clone.querySelector(".OptionName");
-           
+        
+
         checkbox.id = category.id;
         checkbox.value = category.id;
         label.setAttribute("for", category.id);
         optionName.textContent = category.categoryName;
-          
         categoryList.appendChild(clone);
     });    
 } 
@@ -92,22 +93,34 @@ const showProducts = (products) => {
         const h1 = clone.querySelector("h1");
         const price = clone.querySelector(".price");
         const description = clone.querySelector(".description");
+        const button = clone.querySelector("button");
 
         image.src = "./Images/" + product.prodImage;
         h1.textContent = product.prodName;
         price.textContent = product.price + " ₪";
         description.textContent = product.prodDescription;
+        button.addEventListener('click', () => { addToCart(product) });
         if (product.price > max)
             max = product.price;
         if (product.price < min)
             min = product.price;
-        
         PoductList.appendChild(clone);
     });
     const counter = document.getElementById("counter");
     counter.innerHTML = products.length;
     const minPrice = document.getElementById("minPrice");
-    minPrice.value = min;
+    minPrice.placeholder = min;
     const maxPrice = document.getElementById("maxPrice");
-    maxPrice.value = max;
+    maxPrice.placeholder = max;
 } 
+
+const addToCart = (product) => {
+    console.log(product);
+    let ItemsCountText = document.getElementById("ItemsCountText");
+    ItemsCountText.innerHTML++;
+    const prodArray = sessionStorage.getItem("productArray");
+    const jsonProd = JSON.parse(prodArray);
+    jsonProd.push(JSON.stringify(product));
+
+    
+}
