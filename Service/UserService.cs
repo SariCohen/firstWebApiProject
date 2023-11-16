@@ -9,6 +9,7 @@ using Zxcvbn;
 
 namespace Service
 {
+    //Rename folder to Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;

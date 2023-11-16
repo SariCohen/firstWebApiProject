@@ -48,9 +48,12 @@ namespace Login.Controllers
             {
                 User newUser = await _userService.AddUser(user);
                 return CreatedAtAction(nameof(Get), new { id = newUser.Id }, newUser);
+                //Check: if newUser==null return BadRequest()
             }
             catch (Exception ex)
             {
+                //error code 400 (BadRequest) is not suitable for server exceptions; use the 500 error code for internal server Error. 
+                //return Status code 500 or throw an exception. 
                 return BadRequest(ex.Message);
             }
         }
@@ -67,13 +70,17 @@ namespace Login.Controllers
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
         public async Task<ActionResult<User>> Put(int id, [FromBody] User upUser)
+            //clean code-UserToUpdate
         {
+            //clean code- updatedUser
             User user = await _userService.UpdateUser(id, upUser);
             if(user == null)
                 return NoContent();
+            //Update should return the updated user. OK(user)
             return Ok();
         }
 
+        //Clean code -Remove unnecessary lines of code.
         // DELETE api/<UsersController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
