@@ -1,4 +1,6 @@
-﻿const showRegister = () => {
+﻿
+//showRegisterForm- more meaningfull function name
+const showRegister = () => {
     const register = document.getElementById("register")
     register.style.visibility = "initial"
 }
@@ -16,7 +18,11 @@ const login = async () => {
                 },
             });
         if (!res.ok)
+        //check response's status- if status==401 alert(userName or password are invalid)
+        //if status==400 model validation error... etc
+            //alert instead of throwing an error
             throw new Error("Name or Password worng!!!!")
+        //else
         const user = await res.json();
         sessionStorage.setItem("user", JSON.stringify(user))
         console.log(user)

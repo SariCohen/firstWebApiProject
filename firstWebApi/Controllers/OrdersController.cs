@@ -17,6 +17,7 @@ namespace firstWebApi.Controllers
             _orderService = orderService;
         }
 
+        //Clean code -Remove unnecessary lines of code.
         // GET api/<OrdersController>/5
         [HttpGet("{id}")]
         public string Get(int id)
@@ -28,7 +29,8 @@ namespace firstWebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Order>> Post([FromBody] Order order)
         {
-             Order newOrderdr = await _orderService.AddOrder(order);
+            //clean code newOrder instead of newOrderdr
+            Order newOrderdr = await _orderService.AddOrder(order);
              return CreatedAtAction(nameof(Get), new { id = newOrderdr.Id }, newOrderdr);
         }
 

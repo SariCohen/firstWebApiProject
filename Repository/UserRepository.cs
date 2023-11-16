@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
+    //Rename folder to Repositories
     public class UserRepository : IUserRepository
     {
         private readonly Store214493777Context _store214493777Context;

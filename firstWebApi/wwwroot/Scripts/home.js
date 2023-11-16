@@ -36,8 +36,11 @@ const update = async () => {
                 },
                 body: JSON.stringify(user)
             });
-
+            //If (res.status == 200) save the new user details in SessionStorage
+            // and   alert a suitable message
+            //else---
         if (!res.ok)
+            //alert("Failed to update user details") instead of throwing an error
             throw new Error("Failed to save changes")
         window.location.href = "./login.html"
     
