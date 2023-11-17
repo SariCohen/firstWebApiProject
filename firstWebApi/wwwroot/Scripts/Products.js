@@ -113,12 +113,10 @@ const showProducts = (products) => {
     const maxPrice = document.getElementById("maxPrice");
     maxPrice.placeholder = max;
 } 
-
+let cart = [];
 const addToCart = (product) => {
     console.log(product);
     document.getElementById("ItemsCountText").innerHTML++;
-    const prodArray = sessionStorage.getItem("productArray");
-    const jsonProd = JSON.parse(prodArray);
-    jsonProd.push(JSON.stringify(product));
-    sessionStorage.productArray = jsonProd;    
+    cart.push(product);
+    sessionStorage.setItem("productArray", JSON.stringify(cart));
 }
