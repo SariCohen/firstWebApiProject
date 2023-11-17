@@ -1,6 +1,6 @@
 ﻿using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
-using Service;
+using Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,19 +17,17 @@ namespace firstWebApi.Controllers
             _orderService = orderService;
         }
 
-        // GET api/<OrdersController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<OrdersController>
         [HttpPost]
         public async Task<ActionResult<Order>> Post([FromBody] Order order)
         {
-             Order newOrderdr = await _orderService.AddOrder(order);
-             return CreatedAtAction(nameof(Get), new { id = newOrderdr.Id }, newOrderdr);
+             Order newOrder = await _orderService.AddOrder(order);
+             return CreatedAtAction(nameof(Get), new { id = newOrder.Id }, newOrder);
         }
 
     }

@@ -1,7 +1,7 @@
 ﻿using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Session;
-using Service;
+using Services;
 using System.Text.Json;
 using Zxcvbn;
 
@@ -20,7 +20,6 @@ namespace Login.Controllers
             _userService = userService;
         }
 
-        // GET: api/<UsersController>
         [HttpGet]
         public async Task<ActionResult<User>> Get([FromQuery] string userName, [FromQuery] string password)
         {
@@ -30,7 +29,6 @@ namespace Login.Controllers
             return Ok(user);
         }
 
-        // GET api/<UsersController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> Get(int id)
         {
@@ -40,7 +38,6 @@ namespace Login.Controllers
             return Ok(user);
         }
 
-        // POST api/<UsersController>
         [HttpPost]
         public async Task<ActionResult<User>> Post([FromBody] User user)
         {
@@ -64,7 +61,6 @@ namespace Login.Controllers
             return Ok(result);
         }
 
-        // PUT api/<UsersController>/5
         [HttpPut("{id}")]
         public async Task<ActionResult<User>> Put(int id, [FromBody] User upUser)
         {
@@ -74,7 +70,6 @@ namespace Login.Controllers
             return Ok();
         }
 
-        // DELETE api/<UsersController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

@@ -116,11 +116,9 @@ const showProducts = (products) => {
 
 const addToCart = (product) => {
     console.log(product);
-    let ItemsCountText = document.getElementById("ItemsCountText");
-    ItemsCountText.innerHTML++;
+    document.getElementById("ItemsCountText").innerHTML++;
     const prodArray = sessionStorage.getItem("productArray");
     const jsonProd = JSON.parse(prodArray);
     jsonProd.push(JSON.stringify(product));
-
-    
+    sessionStorage.productArray = jsonProd;    
 }

@@ -1,6 +1,6 @@
 ﻿using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
-using Service;
+using Services;
 using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,7 +18,6 @@ namespace firstWebApi.Controllers
             _productService = productService;
         }
 
-        // GET: api/<ProductsController>
         [HttpGet]
         public async Task<ActionResult<List<Product>>> GetAllProducts(string? desc, int? minPrice, int? maxPrice, [FromQuery] int?[] categoryIds)
         {
