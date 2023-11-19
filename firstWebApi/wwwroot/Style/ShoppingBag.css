@@ -22,8 +22,12 @@ th {
  td.imageColumn {
     width: 66px;
 }
+td.quantityColumn {
+    width: 40px;
+    text-align: center;
+}
 
-th.itemsColumn,td.imageColumn {
+th.itemsColumn, td.imageColumn {
     padding-right: 10px;
 }
 
@@ -32,6 +36,7 @@ td {
     padding-right: 0;
     vertical-align: top;
     border-bottom: 1px solid #C7C5C5;
+
 }
 
 
@@ -45,9 +50,9 @@ td {
 
 
 .availabilityColumn {
-    width: 205px;
-    min-width: 205px;
-    max-width: 205px;
+    width: 150px;
+    /*min-width: 205px;
+    max-width: 205px;*/
     font-size: 14px;
     color: #4D8958;
     font-family: 'azo-sans', sans-serif;

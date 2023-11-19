@@ -3,7 +3,10 @@
     showCategories(categories);
     const products = await getProducts("");
     showProducts(products);
-    sessionStorage.setItem("productArray", "[]");
+    const product = sessionStorage.getItem("productArray");
+    const productJson = JSON.parse(product);
+    document.getElementById("ItemsCountText").innerHTML = productJson.length;
+    cart = productJson;
 }
 
 const filterProducts = async () => {
