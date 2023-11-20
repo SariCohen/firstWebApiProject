@@ -6,6 +6,7 @@ const loadShoppingBagPage = () => {
 }
 
 const showBagItems = (bagItems) => {
+    let sum = 0;
     console.log(bagItems);
     const template = document.getElementById("temp-row").content;
     const tbody = document.querySelector("tbody");
@@ -19,7 +20,10 @@ const showBagItems = (bagItems) => {
 
         image.src = "./Images/" + item.prodImage;
         itemName.innerText = item.prodName;
-        itemNumber.innerText = item.price ;
+        itemNumber.innerText += " "+item.price ;
         tbody.appendChild(clone);
+        sum += item.price;
     })
+    document.getElementById("itemCount").innerHTML = bagItems.length;
+    document.getElementById("totalAmount").innerHTML = sum ;
 }

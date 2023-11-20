@@ -80,6 +80,7 @@ p.description{
 .bar {
     background-color: black;
     height: 35px;
+    position:sticky;
 }
 
 .Icon {
