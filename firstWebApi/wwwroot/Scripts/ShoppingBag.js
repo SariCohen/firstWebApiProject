@@ -10,6 +10,7 @@ const showBagItems = (bagItems) => {
     console.log(bagItems);
     const template = document.getElementById("temp-row").content;
     const tbody = document.querySelector("tbody");
+    tbody.replaceChildren();
     const prodId = [];
     bagItems.forEach(item => {
         if (prodId.includes(item.id)) {
