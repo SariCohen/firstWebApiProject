@@ -47,3 +47,55 @@ const deleteProd = () => {
     sessionStorage.setItem("productArray", JSON.stringify(prod));
     showBagItems(prod);    
 }
+
+const placeOrder = () => {
+    if (!(sessionStorage.getItem("user")))
+    {
+        window.location.href = "login.html";
+    }
+    else
+        createOrder();
+}
+
+const createOrder = async () => {
+    const items = JSON.parse(sessionStorage.getItem("productArray"));
+    const userId = JSON.parse(sessionStorage.getItem("user")).id;
+    const orderSum = parseInt(document.getElementById("totalAmount").innerHTML);
+    const orderDate = new Date();
+    const orderItems = [];
+    items.forEach(item => {
+        let prod = document.getElementById(item.id);
+        let quantity = prod.querySelector('.quantity').innerHTML;
+        let productId = item.id;
+        let orderItem = { productId, quantity };
+
+        orderItems.push(orderItem);
+    })
+    console.log(orderItems);
+    const order = { userId, orderDate, orderSum, orderItems };
+    try {
+        const res = await fetch('/api/orders',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(order)
+            });
+
+        if (!res.ok)
+            throw new Error("Error place order")
+        const created = await res.json();
+        console.log(created);
+        alert(`Order num: ${created.id} has been successfully ordered`);
+        const tbody = document.querySelector("tbody");
+        tbody.replaceChildren();
+        sessionStorage.setItem("productArray", []);
+        document.getElementById("itemCount").innerHTML = "";
+        document.getElementById("totalAmount").innerHTML = "";
+    } catch (ex) {
+        alert(ex.message);
+    }
+
+
+}
