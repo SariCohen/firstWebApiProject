@@ -16,11 +16,15 @@ const login = async () => {
                 },
             });
         if (!res.ok)
-            throw new Error("Name or Password worng!!!!")
-        const user = await res.json();
-        sessionStorage.setItem("user", JSON.stringify(user))
-        console.log(user)
-        window.location.href = "./home.html"
+            throw new Error();
+        if (res.status == 204)
+            alert("Name or Password worng!!!!");
+        else {
+            const user = await res.json();
+            sessionStorage.setItem("user", JSON.stringify(user))
+            console.log(user)
+            window.location.href = "./home.html"
+        }        
     }
     catch (ex) {
         alert(ex.message)
