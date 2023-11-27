@@ -8,12 +8,15 @@ const login = async () => {
         const userName = document.getElementById("userName").value
         const password = document.getElementById("password").value
 
-        const res = await fetch(`/api/users?userName=${userName}&password=${password}`,
+        const user = {userName, password}
+
+        const res = await fetch('/api/users/login',
             {
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
+                body: JSON.stringify(user)
             });
         if (!res.ok)
             throw new Error();

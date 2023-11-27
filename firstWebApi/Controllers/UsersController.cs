@@ -1,4 +1,6 @@
-﻿using Entities.Models;
+﻿using AutoMapper;
+using DTO;
+using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Session;
 using Services;
@@ -15,18 +17,22 @@ namespace Login.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
-        public UsersController(IUserService userService)
+        private readonly IMapper _mapper;
+        public UsersController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<User>> Get([FromQuery] string userName, [FromQuery] string password)
+        [HttpPost("login")]
+        public async Task<ActionResult<User>> Post([FromBody] UserLoginDTO userLoginDTO)
         {
-            User user = await _userService.GetUserByEmailAndPassword(userName, password);
-            if(user == null)
+            User user = _mapper.Map<UserLoginDTO, User>(userLoginDTO);
+            User loginUser = await _userService.GetUserByEmailAndPassword(user.UserName, user.Password);
+            if(loginUser == null)
                 return NoContent();
-            return Ok(user);
+            UserDTO userDTO = _mapper.Map<User, UserDTO>(loginUser);
+            return Ok(userDTO);
         }
 
         [HttpGet("{id}")]
@@ -35,18 +41,21 @@ namespace Login.Controllers
             User user = await _userService.GetUserById(id);
             if (user == null)
                 return NoContent();
-            return Ok(user);
+            UserDTO userDTO = _mapper.Map<User, UserDTO>(user);
+            return Ok(userDTO);
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> Post([FromBody] User user)
+        public async Task<ActionResult<User>> Post([FromBody] UserDTO userDto)
         {
             try
             {
+                User user = _mapper.Map<UserDTO,User>(userDto);
                 User newUser = await _userService.AddUser(user);
                 if (newUser == null)
                     return BadRequest();
-                return CreatedAtAction(nameof(Get), new { id = newUser.Id }, newUser);
+                UserDTO userDTO = _mapper.Map<User, UserDTO>(newUser);
+                return CreatedAtAction(nameof(Get), new { id = userDTO.Id }, userDTO);
             }
             catch (Exception ex)
             {
@@ -64,12 +73,14 @@ namespace Login.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<User>> Put(int id, [FromBody] User UserToUpdate)
+        public async Task<ActionResult<User>> Put(int id, [FromBody] UserDTO userDto)
         {
+            User UserToUpdate = _mapper.Map<UserDTO, User>(userDto);
             User updatedUser = await _userService.UpdateUser(id, UserToUpdate);
             if(updatedUser == null)
                 return NoContent();
-            return Ok(updatedUser);
+            UserDTO userDTO = _mapper.Map<User, UserDTO>(updatedUser);
+            return Ok(userDTO);
         }
 
 
