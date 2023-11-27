@@ -1,4 +1,6 @@
-﻿using Entities.Models;
+﻿using AutoMapper;
+using DTO;
+using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 
@@ -10,11 +12,13 @@ namespace firstWebApi.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        IOrderService _orderService;
+        private readonly IOrderService _orderService;
+        private readonly IMapper _mapper;
 
-        public OrdersController(IOrderService orderService)
+        public OrdersController(IOrderService orderService, IMapper mapper)
         {
             _orderService = orderService;
+            _mapper = mapper;
         }
 
         [HttpGet("{id}")]
@@ -24,10 +28,11 @@ namespace firstWebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Order>> Post([FromBody] Order order)
+        public async Task<ActionResult<Order>> Post([FromBody] OrderDTO order)
         {
-             Order newOrder = await _orderService.AddOrder(order);
-             return CreatedAtAction(nameof(Get), new { id = newOrder.Id }, newOrder);
+            Order ord = _mapper.Map<OrderDTO, Order>(order);
+            Order newOrder = await _orderService.AddOrder(ord);
+            return CreatedAtAction(nameof(Get), new { id = newOrder.Id }, newOrder);
         }
 
     }

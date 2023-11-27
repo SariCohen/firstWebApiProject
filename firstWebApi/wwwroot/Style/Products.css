@@ -50,7 +50,7 @@ p.description{
     height:65px;
 }
 .bar::before {
-    content: 'חנות הצעצועים שלי';
+    content: 'חנות אבזור למטבח';
     color: white;
     position: absolute;
     top: 8px;

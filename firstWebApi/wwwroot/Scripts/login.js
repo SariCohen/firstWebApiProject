@@ -1,4 +1,4 @@
-﻿const showRegister = () => {
+﻿const showRegisterForm = () => {
     const register = document.getElementById("register")
     register.style.visibility = "initial"
 }

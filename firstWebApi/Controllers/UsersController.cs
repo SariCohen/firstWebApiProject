@@ -44,11 +44,13 @@ namespace Login.Controllers
             try
             {
                 User newUser = await _userService.AddUser(user);
+                if (newUser == null)
+                    return BadRequest();
                 return CreatedAtAction(nameof(Get), new { id = newUser.Id }, newUser);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(500);// BadRequest(ex.Message);
             }
         }
         [Route("Pwd")]
@@ -62,17 +64,14 @@ namespace Login.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<User>> Put(int id, [FromBody] User upUser)
+        public async Task<ActionResult<User>> Put(int id, [FromBody] User UserToUpdate)
         {
-            User user = await _userService.UpdateUser(id, upUser);
-            if(user == null)
+            User updatedUser = await _userService.UpdateUser(id, UserToUpdate);
+            if(updatedUser == null)
                 return NoContent();
-            return Ok();
+            return Ok(updatedUser);
         }
 
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+
     }
 }

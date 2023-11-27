@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entiti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Service\Services.csproj", "{9CCEC181-9930-4880-8817-13B5EBE06C0F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO", "DTO\DTO.csproj", "{F9613E98-7627-494A-AE07-25B770F76962}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{9CCEC181-9930-4880-8817-13B5EBE06C0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CCEC181-9930-4880-8817-13B5EBE06C0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CCEC181-9930-4880-8817-13B5EBE06C0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9613E98-7627-494A-AE07-25B770F76962}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9613E98-7627-494A-AE07-25B770F76962}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9613E98-7627-494A-AE07-25B770F76962}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9613E98-7627-494A-AE07-25B770F76962}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

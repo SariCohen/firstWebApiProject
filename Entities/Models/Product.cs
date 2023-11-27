@@ -19,6 +19,5 @@ public partial class Product
     public string? ProdDescription { get; set; }
 
     public virtual Category? Category { get; set; }
-    [JsonIgnore]
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 }

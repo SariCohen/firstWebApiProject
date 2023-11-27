@@ -38,7 +38,7 @@ const update = async () => {
             });
 
         if (!res.ok)
-            throw new Error("Failed to save changes")
+            throw new Error("Failed to update user details")
         window.location.href = "./login.html"
     
     }

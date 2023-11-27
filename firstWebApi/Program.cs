@@ -21,7 +21,7 @@ builder.Services.AddDbContext<Store214493777Context>(option => option.UseSqlServ
 //builder.Services.AddDbContext<Store214493777Context>(option => option.UseSqlServer("Server=SRV2\\PUPILS;Database=214493777_Store;Trusted_Connection=True;TrustServerCertificate=True"));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());    
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

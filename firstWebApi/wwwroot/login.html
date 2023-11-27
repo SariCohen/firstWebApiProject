@@ -15,13 +15,13 @@
         <input type="password" id="password" />
         <br />
         <button onclick="login()">התחברות</button>
-        <button onclick="showRegister()">להוספת משתמש</button>
+        <button onclick="showRegisterForm()">להוספת משתמש</button>
         <div id="register" style="visibility:hidden">
             <label for="registerUserName">שם משתמש</label>
             <input id="registerUserName" />
             <br />
             <label for="pass">סיסמה</label>
-            <input type="password" id="pass" onblur="checkPassword()"/>
+            <input type="password" id="pass" oninput="checkPassword()"/>
             <progress id="progress" value="0" max="4"></progress>
             <br />
             <label for="name">שם פרטי</label>

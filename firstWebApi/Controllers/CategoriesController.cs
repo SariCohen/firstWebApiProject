@@ -1,4 +1,6 @@
-﻿using Entities.Models;
+﻿using AutoMapper;
+using DTO;
+using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 
@@ -10,28 +12,25 @@ namespace firstWebApi.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        ICategoryService _categoryService;
+        private readonly ICategoryService _categoryService;
+        private readonly IMapper _mapper;
 
-        public CategoriesController(ICategoryService categoryService)
+        public CategoriesController(ICategoryService categoryService, IMapper mapper)
         {
             _categoryService = categoryService;
+            _mapper = mapper;
         }
         
         [HttpGet]
-        public async Task<ActionResult<List<Category>>> Get()
+        public async Task<ActionResult<List<CategoryDTO>>> Get()
         {
             List<Category> lc = await _categoryService.GetAllCategories(); 
+            List<CategoryDTO> lcDTO = _mapper.Map<List<Category>, List<CategoryDTO>>(lc);
             if(lc == null)
             {
                 return NoContent();
             }
-            return Ok(lc);
-        }
-
-        [HttpGet("{id}")]
-        public string GetCategoryById(int id)
-        {
-            return "value";
+            return Ok(lcDTO);
         }
 
     }
