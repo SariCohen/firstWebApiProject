@@ -17,6 +17,8 @@ builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<IOrderRepository, OrderRepository>();
 builder.Services.AddTransient<IOrderService, OrderService>();
+builder.Services.AddTransient<IOrderItemRepository, OrderItemRepository>();
+builder.Services.AddTransient<IOrderItemService, OrderItemService>();
 builder.Services.AddDbContext<Store214493777Context>(option => option.UseSqlServer("Server=DESKTOP-TB3DT9H;Database=store_214493777;Trusted_Connection=True;TrustServerCertificate=True"));
 //builder.Services.AddDbContext<Store214493777Context>(option => option.UseSqlServer("Server=SRV2\\PUPILS;Database=214493777_Store;Trusted_Connection=True;TrustServerCertificate=True"));
 builder.Services.AddEndpointsApiExplorer();

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class OrederItemService : IOrederItemService
+    public class OrderItemService : IOrderItemService
     {
         private readonly IOrderItemRepository _orderItemRepository;
 
-        public OrederItemService(IOrderItemRepository orderItemRepository)
+        public OrderItemService(IOrderItemRepository orderItemRepository)
         {
             _orderItemRepository = orderItemRepository;
         }

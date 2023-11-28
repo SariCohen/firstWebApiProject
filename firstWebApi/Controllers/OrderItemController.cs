@@ -12,18 +12,18 @@ namespace firstWebApi.Controllers
     [ApiController]
     public class OrderItemController : ControllerBase
     {
-        private readonly IOrederItemService _orederItemService;
+        private readonly IOrderItemService _orderItemService;
         private readonly IMapper _mapper;
 
-        public OrderItemController(IOrederItemService orederItemService, IMapper mapper)
+        public OrderItemController(IOrderItemService orderItemService, IMapper mapper)
         {
-            _orederItemService = orederItemService;
+            _orderItemService = orderItemService;
             _mapper = mapper;
         }
         [HttpPost]
         public async Task<ActionResult<OrderItem>> Post([FromBody] OrderItem[] orderItems)
         {
-            _orederItemService.AddOrderItems(orderItems);
+            _orderItemService.AddOrderItems(orderItems);
                 return Ok();
         }
 

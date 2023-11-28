@@ -2,7 +2,7 @@
 
 namespace Services
 {
-    public interface IOrederItemService
+    public interface IOrderItemService
     {
         Task AddOrderItems(OrderItem[] orderItems);
     }
