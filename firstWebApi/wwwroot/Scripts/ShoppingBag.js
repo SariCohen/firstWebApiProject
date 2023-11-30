@@ -41,7 +41,6 @@ const deleteProd = () => {
     const deleteButton = event.target;
     const row = deleteButton.closest('.item-row'); 
     const rowId = row.id;
-    console.log('Clicked on delete button of row with ID:', rowId);
     const itemsBag = JSON.parse(sessionStorage.getItem("productArray"));
     const prod = itemsBag.filter(prod => prod.id !== parseInt(rowId));
     sessionStorage.setItem("productArray", JSON.stringify(prod));
@@ -63,6 +62,14 @@ const createOrder = async () => {
     const orderSum = parseInt(document.getElementById("totalAmount").innerHTML);
     const orderDate = new Date();
     const orderItems = [];
+    items.forEach(item => {
+        let prod = document.getElementById(item.id);
+        let quantity = prod.querySelector('.quantity').innerHTML;
+        let productId = item.id;
+        let orderItem = { productId, quantity };
+
+        orderItems.push(orderItem);
+    })
     console.log(orderItems);
     const order = { userId, orderDate, orderSum, orderItems };
     try {
@@ -78,43 +85,13 @@ const createOrder = async () => {
         if (!res.ok)
             throw new Error("Error place order")
         const created = await res.json();
-        console.log(created);
         alert(`Order num: ${created.id} has been successfully ordered`);
-        const orderId = created.id;
-        items.forEach(item => {
-            let prod = document.getElementById(item.id);
-            let quantity = prod.querySelector('.quantity').innerHTML;
-            let productId = item.id;
-            let orderItem = { productId, quantity, orderId };
-
-            orderItems.push(orderItem);
-        })
-        saveOrderItems(orderItems);
         const tbody = document.querySelector("tbody");
         tbody.replaceChildren();
         sessionStorage.setItem("productArray", []);
         document.getElementById("itemCount").innerHTML = "";
         document.getElementById("totalAmount").innerHTML = "";
     } catch (ex) {
-        alert(ex.message);
-    }
-}
-
-const saveOrderItems = async (orderItems) => {
-    try {
-        const res = await fetch('/api/OrderItem',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(orderItems)
-            });
-
-        if (!res.ok)
-            throw new Error("Error place order")
-    }
-    catch (ex) {
         alert(ex.message);
     }
 }

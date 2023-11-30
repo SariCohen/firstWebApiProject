@@ -7,8 +7,10 @@ namespace Repositories;
 
 public partial class Store214493777Context : DbContext
 {
+
     public Store214493777Context()
     {
+
     }
 
     public Store214493777Context(DbContextOptions<Store214493777Context> options)

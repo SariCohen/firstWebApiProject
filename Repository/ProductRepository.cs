@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Repositories
 {
@@ -27,6 +28,11 @@ namespace Repositories
 
             Console.WriteLine(query.ToQueryString());
             List<Product> products = await query.ToListAsync();
+            return products;
+        }
+        public async Task<List<Product>> GetAllProducts()
+        {
+            List<Product> products = await _store214493777Context.Products.ToListAsync();
             return products;
         }
     }

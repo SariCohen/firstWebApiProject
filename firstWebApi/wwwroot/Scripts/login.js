@@ -19,7 +19,7 @@ const login = async () => {
                 body: JSON.stringify(user)
             });
         if (!res.ok)
-            throw new Error();
+            throw new Error("Error to connect the srver");
         if (res.status == 204)
             alert("Name or Password worng!!!!");
         else {

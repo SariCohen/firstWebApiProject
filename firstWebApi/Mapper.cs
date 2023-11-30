@@ -14,6 +14,7 @@ namespace firstWebApi
             CreateMap<Product, ProductDTO>().ReverseMap();
             CreateMap<User, UserLoginDTO>().ReverseMap();
             CreateMap<User,UserDTO>().ReverseMap();
+            CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
         }
     }
 }
