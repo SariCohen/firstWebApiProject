@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Repositories;
 using Services;
@@ -18,11 +19,10 @@ builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<IOrderRepository, OrderRepository>();
 builder.Services.AddTransient<IOrderService, OrderService>();
-builder.Services.AddDbContext<Store214493777Context>(option => option.UseSqlServer("Server=DESKTOP-TB3DT9H;Database=store_214493777;Trusted_Connection=True;TrustServerCertificate=True"));
-//builder.Services.AddDbContext<Store214493777Context>(option => option.UseSqlServer("Server=SRV2\\PUPILS;Database=214493777_Store;Trusted_Connection=True;TrustServerCertificate=True"));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());    
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddDbContext<Store214493777Context>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("Stroe")));
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
