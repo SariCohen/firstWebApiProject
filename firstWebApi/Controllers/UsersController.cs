@@ -3,6 +3,7 @@ using DTO;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Session;
+using Microsoft.Extensions.Logging;
 using Services;
 using System.Text.Json;
 using Zxcvbn;
@@ -18,10 +19,12 @@ namespace Login.Controllers
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        public UsersController(IUserService userService, IMapper mapper)
+        private readonly ILogger<UsersController> _logger;
+        public UsersController(IUserService userService, IMapper mapper, ILogger<UsersController> logger)
         {
             _userService = userService;
             _mapper = mapper;
+            _logger = logger;
         }
 
         [HttpPost("login")]
@@ -29,9 +32,10 @@ namespace Login.Controllers
         {
             User user = _mapper.Map<UserLoginDTO, User>(userLoginDTO);
             User loginUser = await _userService.GetUserByEmailAndPassword(user.UserName, user.Password);
-            if(loginUser == null)
+            if(loginUser == null) 
                 return NoContent();
             UserDTO userDTO = _mapper.Map<User, UserDTO>(loginUser);
+            _logger.LogInformation($"Login attempted with User Name {loginUser.UserName.Trim()} and password {loginUser.Password.Trim()}");
             return Ok(userDTO);
         }
 

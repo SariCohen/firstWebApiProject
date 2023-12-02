@@ -1,6 +1,8 @@
+using firstWebApi.Middlewares;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using NLog.Web;
 using Repositories;
 using Services;
 
@@ -22,7 +24,9 @@ builder.Services.AddTransient<IOrderService, OrderService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddDbContext<Store214493777Context>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("Stroe")));
+builder.Services.AddDbContext<Store214493777Context>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("Store")));
+builder.Host.UseNLog();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -32,6 +36,7 @@ if (app.Environment.IsDevelopment())
 }
 
 // Configure the HTTP request pipeline.
+app.UseErrorHandlingMiddleware();
 
 app.UseHttpsRedirection();
 

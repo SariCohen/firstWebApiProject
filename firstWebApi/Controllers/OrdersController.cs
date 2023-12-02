@@ -21,19 +21,13 @@ namespace firstWebApi.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         [HttpPost]
         public async Task<ActionResult<Order>> Post([FromBody] OrderDTO order)
         {
             Order ord = _mapper.Map<OrderDTO, Order>(order);
             Order newOrder = await _orderService.AddOrder(ord);
             OrderDTO newOrderDto = _mapper.Map<Order, OrderDTO>(newOrder);
-            return CreatedAtAction(nameof(Get), new { id = newOrderDto.Id }, newOrderDto);
+            return CreatedAtAction(nameof(Post), new { id = newOrderDto.Id }, newOrderDto);
         }
 
     }

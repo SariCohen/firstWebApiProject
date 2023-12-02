@@ -8,7 +8,7 @@ namespace Repositories;
 
 public partial class Store214493777Context : DbContext
 {
-    public IConfiguration _configuration { get; }
+    public IConfiguration _configuration;
     public Store214493777Context()
     {
     }

@@ -11,9 +11,9 @@ namespace Repositories
     {
         private readonly Store214493777Context _store214493777Context;
 
-        public OrderRepository()
+        public OrderRepository(Store214493777Context store214493777Context)
         {
-            _store214493777Context = new Store214493777Context();
+            _store214493777Context = store214493777Context;
         }
 
         public async Task<Order> AddOrder(Order order)
