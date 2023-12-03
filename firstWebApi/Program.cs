@@ -1,3 +1,4 @@
+using firstWebApi.middlewares;
 using firstWebApi.Middlewares;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -36,6 +37,8 @@ if (app.Environment.IsDevelopment())
 }
 
 // Configure the HTTP request pipeline.
+//app.UseRatingMiddleware();
+
 app.UseErrorHandlingMiddleware();
 
 app.UseHttpsRedirection();
