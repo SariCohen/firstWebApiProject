@@ -4,6 +4,6 @@ namespace Repositories
 {
     public interface IRatingRepository
     {
-        Rating AddRating(Rating rating);
+        Task AddRating(Rating rating);
     }
 }

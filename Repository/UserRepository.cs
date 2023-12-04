@@ -1,13 +1,7 @@
 ﻿using Entities.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+
 
 namespace Repositories
 {
@@ -22,7 +16,8 @@ namespace Repositories
 
         public async Task<User> GetUserByEmailAndPassword(string email, string password)
         {
-            return await _store214493777Context.Users.Where(user => user.UserName == email && user.Password == password).FirstOrDefaultAsync();
+             User user = await _store214493777Context.Users.Where(user => user.UserName == email && user.Password == password).FirstOrDefaultAsync();
+             return user;
         }
 
         public async Task<User> GetUserById(int id)

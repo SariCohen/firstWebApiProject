@@ -1,10 +1,6 @@
 ﻿using Entities.Models;
 using Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Services
 {
@@ -17,9 +13,11 @@ namespace Services
             _ratingRepository = ratingRepository;
         }
 
-        public Rating AddRating(Rating rating)
+        public async Task AddRating(Rating rating)
         {
-            return _ratingRepository.AddRating(rating);
+            
+            await _ratingRepository.AddRating(rating);
+            return;
         }
     }
 }

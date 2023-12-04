@@ -2,11 +2,8 @@
 using DTO;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Session;
-using Microsoft.Extensions.Logging;
 using Services;
-using System.Text.Json;
-using Zxcvbn;
+
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -42,6 +39,8 @@ namespace Login.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> Get(int id)
         {
+            int z = 0;
+            int err = 8 / z;
             User user = await _userService.GetUserById(id);
             if (user == null)
                 return NoContent();

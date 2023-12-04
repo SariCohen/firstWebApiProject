@@ -1,36 +1,26 @@
 ﻿using Entities.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
-using System;
-using System.Data;
-using System.Data.SqlClient;
-
-namespace Repositories
-{
 
 
+namespace Repositories 
+{ 
     public class RatingRepository : IRatingRepository
     {
         private readonly IConfiguration _configuration;
 
-        public RatingRepository(Store214493777Context store214493777Context, IConfiguration configuration)
+        public RatingRepository(IConfiguration configuration)
         {
-           _configuration = configuration;
-            
+           _configuration = configuration;            
         }
 
-        public Rating AddRating(Rating rating)
+        public async Task AddRating(Rating rating)
         {
-            string query = "INSERT INTO Rating(Host, Method, Path, Referer, UserAgent, RecordDate) " +
+            
+            string query = "INSERT INTO Rating(HOST, METHOD, PATH, REFERER, USER_AGENT, Record_Date) " +
                 "VALUES(@Host, @Method, @Path, @Referer, @UserAgent, @RecordDate)";
-            using (SqlConnection con = new SqlConnection(_configuration.GetConnectionString("connectionString")))
+            using (SqlConnection con = new SqlConnection(_configuration.GetConnectionString("Store")))
             using (SqlCommand cmd = new SqlCommand(query, con))
             {
                 cmd.Parameters.Add("@Host", SqlDbType.NVarChar, 50).Value = rating.Host;
@@ -41,10 +31,10 @@ namespace Repositories
                 cmd.Parameters.Add("@RecordDate", SqlDbType.DateTime).Value = rating.RecordDate;
 
                 con.Open();
-                //rowAffected += cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
                 con.Close();
             }
-            return rating;
+            return;
         }
 
     }
