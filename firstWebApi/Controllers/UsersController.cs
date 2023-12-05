@@ -27,6 +27,7 @@ namespace Login.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<User>> Post([FromBody] UserLoginDTO userLoginDTO)
         {
+          
             User user = _mapper.Map<UserLoginDTO, User>(userLoginDTO);
             User loginUser = await _userService.GetUserByEmailAndPassword(user.UserName, user.Password);
             if(loginUser == null) 

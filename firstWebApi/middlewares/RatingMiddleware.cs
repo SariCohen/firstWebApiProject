@@ -54,7 +54,7 @@ namespace firstWebApi.middlewares
         {
             _next = next;
         }
-        public async Task<Task> Invoke(HttpContext httpContext, IRatingService ratingService)
+        public async Task Invoke(HttpContext httpContext, IRatingService ratingService)
         {
             _ratingService = ratingService;
             Rating rating = new Rating();
@@ -65,7 +65,7 @@ namespace firstWebApi.middlewares
             rating.UserAgent = httpContext.Request.Headers["User-Agent"];
             rating.RecordDate = DateTime.Now;
             await _ratingService.AddRating(rating);
-            return _next(httpContext);
+            await _next(httpContext);
         }
     }
     public static class RatingMiddlewareExtentions

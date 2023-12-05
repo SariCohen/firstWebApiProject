@@ -1,4 +1,5 @@
-﻿using Entities.Models;
+﻿using DTO;
+using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -13,17 +14,18 @@ namespace Repositories
             _store214493777Context = store214493777Context;
         }
 
-        public async Task<List<Product>> GetAllProducts(string? desc, int? minPrice, int? maxPrice, int?[] categoryIds)
+        public async Task<List<ProductDTO>> GetAllProducts(string? desc, int? minPrice, int? maxPrice, int?[] categoryIds)
         {
             var query = _store214493777Context.Products.Where(product =>
             (desc == null ? (true) : (product.ProdDescription.Contains(desc)))
             && ((minPrice == null) ? (true) : (product.Price >= minPrice))
             && ((maxPrice == null) ? (true) : (product.Price <= maxPrice))
             && ((categoryIds.Length == 0) ? (true) : (categoryIds.Contains(product.CategoryId))))
-            .OrderBy(product => product.Price);
+           .Include(i => i.Category.CategoryName)
+           .OrderBy(product => product.Price);
 
             Console.WriteLine(query.ToQueryString());
-            List<Product> products = await query.ToListAsync();
+            List<ProductDTO> products = await query.ToListAsync();
             return products;
         }
         public async Task<List<Product>> GetAllProducts()

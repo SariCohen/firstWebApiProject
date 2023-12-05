@@ -38,9 +38,11 @@ if (app.Environment.IsDevelopment())
 }
 
 // Configure the HTTP request pipeline.
-//app.UseRatingMiddleware();
+
 
 app.UseErrorHandlingMiddleware();
+
+app.UseRatingMiddleware();
 
 app.UseHttpsRedirection();
 
