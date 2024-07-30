@@ -6,16 +6,13 @@ namespace Repositories;
 
 public partial class Store214493777Context : DbContext
 {
-    public IConfiguration _configuration;
     public Store214493777Context()
     {
     }
 
-    public Store214493777Context(DbContextOptions<Store214493777Context> options, IConfiguration configuration)
+    public Store214493777Context(DbContextOptions<Store214493777Context> options)
         : base(options)
-    {
-        _configuration = configuration;
-    }
+    {   }
 
     public virtual DbSet<Category> Categories { get; set; }
 
@@ -27,8 +24,8 @@ public partial class Store214493777Context : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-       => optionsBuilder.UseSqlServer(_configuration.GetConnectionString("Store"));
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
+       //=> optionsBuilder.UseSqlServer(_configuration.GetConnectionString("Store"));
       
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
